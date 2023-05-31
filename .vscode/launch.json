@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "sea.App",
+            "projectName": "SeaOdyssey_8d00fcdd",
+            "vmArgs": "--module-path /home/ewa/javafx-sdk-20.0.1/lib/ --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
