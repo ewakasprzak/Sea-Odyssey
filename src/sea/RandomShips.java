@@ -1,64 +1,101 @@
 package sea;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class RandomShips 
 {
-    private int orient;
-    private int row = 10;
-    private int col = 10;
-    private Random random = new Random();
-    private Field[][] fields = new Field[10][10];
-    private Point2D[] active = new Point2D[20];
-    private int count = 0;
 
-    public RandomShips(Field[][] fields)
+    private boolean[][] shipGrid;
+
+    public RandomShips(boolean[][] shipGrid)
     {
-        this.fields = fields;
-        random4(random);
+        this.shipGrid = shipGrid;
+        
+        Random random = new Random();
+
+        for (int row = 0; row < App.getGridSize(); row++) 
+        {
+            for (int col = 0; col < App.getGridSize(); col++) 
+            {
+                shipGrid[row][col] = false;
+            }
+        }
+
+        List<int[]> shipCoordinates = new ArrayList<>();
+
+        for (int i = 1; i <= App.getShipsCount(); i++) 
+        {
+            int length = (i <= 4) ? 1 : (i <= 7) ? 2 : (i <= 9) ? 3 : 4;
+            boolean horizontal = random.nextBoolean();
+
+            int row, col;
+            boolean validPlacement = false;
+
+            while (!validPlacement) 
+            {
+                row = random.nextInt(App.getGridSize());
+                col = random.nextInt(App.getGridSize());
+
+                validPlacement = isValidShipPlacement(row, col, length, horizontal);
+
+                if (validPlacement) 
+                {
+                    shipCoordinates.add(new int[]{row, col, length, (horizontal) ? 1 : 0});
+
+                    for (int j = 0; j < length; j++) 
+                    {
+                        if (horizontal) 
+                        {
+                            shipGrid[row][col + j] = true;
+                        } 
+                        else 
+                        {
+                            shipGrid[row + j][col] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("Ship Coordinates:");
+        for (int[] coordinates : shipCoordinates) 
+        {
+            System.out.println("Row: " + coordinates[0] + ", Col: " + coordinates[1] + ", Length: " + coordinates[2] + ", Orientation: " + ((coordinates[3] == 1) ? "Horizontal" : "Vertical"));
+        }
     }
 
-    public void random4(Random random)
+    private boolean isValidShipPlacement(int row, int col, int length, boolean horizontal) 
     {
-        orient = random.nextInt(2);
+        int endRow = (horizontal) ? row : row + length - 1;
+        int endCol = (horizontal) ? col + length - 1 : col;
 
-        if (orient == 0)
+        if (endRow >= App.getGridSize() || endCol >= App.getGridSize()) 
         {
-            row = random.nextInt(10);
-            col = random.nextInt(7);
-
-            fields[row][col].setActive();
-            fields[row][col].changeColor();
-            active[count] = new Point2D(row, col);
-            count++;
-
-            fields[row + 1][col].setActive();
-            fields[row + 1][col].changeColor();
-            active[count] = new Point2D(row + 1, col);
-            count++;
-
-            fields[row + 2][col].setActive();
-            fields[row + 2][col].changeColor();
-            active[count] = new Point2D(row + 2, col);
-            count++;
-
-            fields[row + 3][col].setActive();
-            fields[row + 3][col].changeColor();
-            active[count] = new Point2D(row + 3, col);
-            count++;
-
+            return false;
         }
-        else
-        {
-            row = random.nextInt(7);
-            col = random.nextInt(10); 
 
-            fields[row][col].setActive();
-            fields[row][col].changeColor();
-            active[count] = new Point2D(row, col);
-            count++;
-        }  
-    }   
+        for (int i = row - 1; i <= endRow + 1; i++) 
+        {
+            for (int j = col - 1; j <= endCol + 1; j++) 
+            {
+                if (i >= 0 && i < App.getGridSize() && j >= 0 && j < App.getGridSize()) 
+                {
+                    if (shipGrid[i][j]) 
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    
+    
 }
