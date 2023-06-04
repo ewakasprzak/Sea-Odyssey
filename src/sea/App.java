@@ -1,37 +1,32 @@
 package sea;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class App extends Application 
 {
     private static final int GRID_SIZE = 10;
-    public static int getGridSize() 
-    {
-        return GRID_SIZE;
-    }
-
     private static final int SHIPS_COUNT = 10;
-    public static int getShipsCount() 
-    {
-        return SHIPS_COUNT;
-    }
-
-    private static final int MAX_TRIES = 15;
-    public static int getMaxTries() 
-    {
-        return MAX_TRIES;
-    }
+    private static final int MAX_TRIES = 30;
 
     private Rectangle[][] grid;
     private boolean[][] shipGrid;
     private GUIGameGrid game; 
-    private GUIHBox hbox; 
+    private GUIVBox vbox; 
 
     public static void main(String[] args) 
     {
@@ -47,23 +42,24 @@ public class App extends Application
         GridPane gameGrid = new GridPane();
         game = new GUIGameGrid(gameGrid, shipGrid, grid);
        
-        Button resetButton = createResetButton();
+        Button gameButton = createGameButton();
 
-
-        hbox = new GUIHBox(gameGrid, resetButton);
+        vbox = new GUIVBox(gameGrid, gameButton);
 
         new RandomShips(shipGrid);
 
-        Scene scene = new Scene(hbox.getHBox());
+        Scene scene = new Scene(vbox.getVBox());
 
         stage.setScene(scene);
         stage.setTitle("SEA ODYSSEY");
         stage.show();
+
+        showGameStartAlert();
     }
 
-    private Button createResetButton() 
+    private Button createGameButton() 
     {
-        Button resetButton = new Button("Reset");
+        Button resetButton = new Button("New Game");
         resetButton.setOnAction(event -> 
         {
             game.resetGame();
@@ -72,6 +68,38 @@ public class App extends Application
         return resetButton;
     }
 
+    private void showGameStartAlert()
+    {
+        String info;
+        
+        try 
+        {
+            info = Files.readString(Path.of("src/sea/Rules.txt"));
+        } catch (IOException e) 
+        {
+            info = "error";
+        }
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Hello!");
+        alert.setHeaderText(null);
+        alert.setContentText(info);
+        alert.showAndWait();
+    } 
     
+    public static int getGridSize() 
+    {
+        return GRID_SIZE;
+    }
+
+    public static int getShipsCount() 
+    {
+        return SHIPS_COUNT;
+    }
+
+    public static int getMaxTries() 
+    {
+        return MAX_TRIES;
+    }
 }
 

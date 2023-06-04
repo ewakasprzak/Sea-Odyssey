@@ -38,14 +38,14 @@ public class GUIGameGrid
 
     private void handleSquareClick(int row, int col) 
     {
-        if (grid[row][col].getFill().equals(Color.RED) || grid[row][col].getFill().equals(Color.WHITE)) 
+        if (grid[row][col].getFill().equals(Color.SIENNA) || grid[row][col].getFill().equals(Color.LIGHTSKYBLUE)) 
         {
             return;
         }
     
         if (shipGrid[row][col]) 
         {
-            grid[row][col].setFill(Color.RED);
+            grid[row][col].setFill(Color.SIENNA);
             triesLeft--;
             if (triesLeft <= 0) 
             {
@@ -54,7 +54,12 @@ public class GUIGameGrid
         } 
         else 
         {
-            grid[row][col].setFill(Color.WHITE);
+            grid[row][col].setFill(Color.LIGHTSKYBLUE);
+            triesLeft--;
+            if (triesLeft <= 0) 
+            {
+                showGameOverAlert();
+            }
         }
     
         if (checkGameWon()) 
@@ -86,7 +91,7 @@ public class GUIGameGrid
         {
             for (int col = 0; col < App.getGridSize(); col++) 
             {
-                grid[row][col].setFill(Color.BEIGE);
+                grid[row][col].setFill(Color.WHITE);
             }
         }
     }

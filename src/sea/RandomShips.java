@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-
 public class RandomShips 
 {
 
@@ -61,12 +57,6 @@ public class RandomShips
                     }
                 }
             }
-        }
-
-        System.out.println("Ship Coordinates:");
-        for (int[] coordinates : shipCoordinates) 
-        {
-            System.out.println("Row: " + coordinates[0] + ", Col: " + coordinates[1] + ", Length: " + coordinates[2] + ", Orientation: " + ((coordinates[3] == 1) ? "Horizontal" : "Vertical"));
         }
     }
 

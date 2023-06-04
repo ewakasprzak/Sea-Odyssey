@@ -17,7 +17,7 @@ public class Field
     public Field()
     {
         field = new Rectangle(30, 30);
-        field.setFill(Color.BEIGE);
+        field.setFill(Color.WHITE);
         field.setStroke(Color.BLACK);
     }
 }

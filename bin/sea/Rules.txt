@@ -1,0 +1,16 @@
+Welcome to the SeaOdyssey!
+
+Your task is to find all 10 ships within 30 moves.
+
+The ships you are about to sink are:
+1) one ship the length of 4
+2) two ships the length of 3
+3) three ships the length of 2
+4) four ships the length of 1
+
+Blue square means you have drowned your bullet.
+Brown square means you have reached the ship.
+
+You can upload new game by clicking the New Game button.
+
+Good luck!
