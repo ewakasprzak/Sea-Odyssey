@@ -23,6 +23,7 @@ public class GUIVBox {
     public GUIVBox(GridPane pane, Button button) 
     {
         this.vbox = new VBox(pane, button);
+        pane.setAlignment(Pos.CENTER);
         this.vbox.setSpacing(10);
         this.vbox.setAlignment(Pos.CENTER);
         this.vbox.setPadding(new Insets(10));

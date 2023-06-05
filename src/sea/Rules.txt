@@ -1,6 +1,6 @@
 Welcome to the SeaOdyssey!
 
-Your task is to find all 10 ships within 30 moves.
+Your task is to find all 10 ships within 66 moves.
 
 The ships you are about to sink are:
 1) one ship the length of 4

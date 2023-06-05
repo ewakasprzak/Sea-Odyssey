@@ -12,6 +12,7 @@ public class GUIGameGrid
     private Rectangle[][] grid;
     private int triesLeft = App.getMaxTries();
     private boolean[][] shipGrid;
+    private boolean finished = false;
 
     public GUIGameGrid(GridPane gamePane, boolean[][] shipGrid, Rectangle[][] grid)
     {
@@ -51,6 +52,7 @@ public class GUIGameGrid
             {
                 showGameOverAlert();
             }
+
         } 
         else 
         {
@@ -66,7 +68,10 @@ public class GUIGameGrid
         {
             showGameWonAlert();
         }
+
+       
     }
+
     
 
     private boolean checkGameWon() 
@@ -75,7 +80,7 @@ public class GUIGameGrid
         {
             for (int col = 0; col < App.getGridSize(); col++) 
             {
-                if (shipGrid[row][col] && !grid[row][col].getFill().equals(Color.RED)) 
+                if (shipGrid[row][col] && !grid[row][col].getFill().equals(Color.SIENNA)) 
                 {
                     return false;
                 }
