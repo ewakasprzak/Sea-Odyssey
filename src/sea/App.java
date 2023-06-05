@@ -44,34 +44,10 @@ public class App extends Application
     @Override
     public void start(Stage stage) 
     {
-        // String musicFile = "ARR.mp3";
-        // String path = getClass().getResource(musicFile).getPath();
-    //     try
-    //   {  Media sound = new Media(getClass().getResource("music.mp3").getPath());
-
-    //     MediaPlayer mediaPlayer = new MediaPlayer(sound);
-
-    //     mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-    //     mediaPlayer.setVolume(0.5);
-
-    //     mediaPlayer.play();}
-    //     catch (MediaException e)
-    //     {
-    //         System.out.println(e.getMessage());
-    //     }
-    String musicFile = "music.mp3";
-    ClassLoader classLoader = getClass().getClassLoader();
-    URL url = classLoader.getResource(musicFile);
-    String path = url.toExternalForm();
-    Media sound = new Media(path);
-    MediaPlayer media = new MediaPlayer(sound);
-    media.play();
-    
-
-
         grid = new Rectangle[GRID_SIZE][GRID_SIZE];
         shipGrid = new boolean[GRID_SIZE][GRID_SIZE];
+
+        music();
 
         GridPane gameGrid = new GridPane();
         game = new GUIGameGrid(gameGrid, shipGrid, grid);
@@ -120,6 +96,18 @@ public class App extends Application
         alert.setContentText(info);
         alert.showAndWait();
     } 
+
+    private void music()
+    {
+        String musicFile = "music.mp3";
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL url = classLoader.getResource(musicFile);
+        String path = url.toExternalForm();
+        Media sound = new Media(path);
+        MediaPlayer media = new MediaPlayer(sound);
+        media.setCycleCount(MediaPlayer.INDEFINITE);
+        media.play();
+    }
 
     
     public static int getGridSize() 
