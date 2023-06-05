@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
@@ -33,8 +34,9 @@ public class App extends Application
     private Rectangle[][] grid;
     private boolean[][] shipGrid;
     private GUIGameGrid game; 
-    private GUIVBox vbox; 
-    private MediaPlayer player;
+    private GUIVBox vbox;
+    private MediaPlayer media;
+    private Button text = new Button();
 
     public static void main(String[] args) 
     {
@@ -46,15 +48,16 @@ public class App extends Application
     {
         grid = new Rectangle[GRID_SIZE][GRID_SIZE];
         shipGrid = new boolean[GRID_SIZE][GRID_SIZE];
+        
 
         music();
 
         GridPane gameGrid = new GridPane();
-        game = new GUIGameGrid(gameGrid, shipGrid, grid);
+        game = new GUIGameGrid(gameGrid, shipGrid, grid, text);
        
         Button gameButton = createGameButton();
 
-        vbox = new GUIVBox(gameGrid, gameButton);
+        vbox = new GUIVBox(gameGrid, gameButton, text);
 
         new RandomShips(shipGrid);
 
@@ -65,6 +68,12 @@ public class App extends Application
         stage.show();
 
         showGameStartAlert();
+    }
+
+    @Override
+    public void stop() {
+        // Cleanup resources when the application is closed
+        media.dispose();
     }
 
     private Button createGameButton() 
@@ -104,7 +113,8 @@ public class App extends Application
         URL url = classLoader.getResource(musicFile);
         String path = url.toExternalForm();
         Media sound = new Media(path);
-        MediaPlayer media = new MediaPlayer(sound);
+        media = new MediaPlayer(sound);
+        media.setVolume(0.5);
         media.setCycleCount(MediaPlayer.INDEFINITE);
         media.play();
     }

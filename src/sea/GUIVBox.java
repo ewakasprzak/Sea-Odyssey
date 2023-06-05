@@ -7,6 +7,7 @@ import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -20,9 +21,10 @@ import javafx.scene.layout.VBox;
 public class GUIVBox {
     private VBox vbox;
 
-    public GUIVBox(GridPane pane, Button button) 
+    public GUIVBox(GridPane pane, Button button, Button text) 
     {
-        this.vbox = new VBox(pane, button);
+        this.vbox = new VBox(text, pane, button);
+        text.setText("Tries left: 66");
         pane.setAlignment(Pos.CENTER);
         this.vbox.setSpacing(10);
         this.vbox.setAlignment(Pos.CENTER);
