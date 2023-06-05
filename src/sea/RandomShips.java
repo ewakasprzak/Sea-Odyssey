@@ -15,9 +15,9 @@ public class RandomShips
         
         Random random = new Random();
 
-        for (int row = 0; row < App.getGridSize(); row++) 
+        for (int row = 0; row < Main.getGridSize(); row++) 
         {
-            for (int col = 0; col < App.getGridSize(); col++) 
+            for (int col = 0; col < Main.getGridSize(); col++) 
             {
                 shipGrid[row][col] = false;
             }
@@ -25,7 +25,7 @@ public class RandomShips
 
         List<int[]> shipCoordinates = new ArrayList<>();
 
-        for (int i = 1; i <= App.getShipsCount(); i++) 
+        for (int i = 1; i <= Main.getShipsCount(); i++) 
         {
             int length = (i <= 4) ? 1 : (i <= 7) ? 2 : (i <= 9) ? 3 : 4;
             boolean horizontal = random.nextBoolean();
@@ -35,8 +35,8 @@ public class RandomShips
 
             while (!validPlacement) 
             {
-                row = random.nextInt(App.getGridSize());
-                col = random.nextInt(App.getGridSize());
+                row = random.nextInt(Main.getGridSize());
+                col = random.nextInt(Main.getGridSize());
 
                 validPlacement = isValidShipPlacement(row, col, length, horizontal);
 
@@ -65,7 +65,7 @@ public class RandomShips
         int endRow = (horizontal) ? row : row + length - 1;
         int endCol = (horizontal) ? col + length - 1 : col;
 
-        if (endRow >= App.getGridSize() || endCol >= App.getGridSize()) 
+        if (endRow >= Main.getGridSize() || endCol >= Main.getGridSize()) 
         {
             return false;
         }
@@ -74,7 +74,7 @@ public class RandomShips
         {
             for (int j = col - 1; j <= endCol + 1; j++) 
             {
-                if (i >= 0 && i < App.getGridSize() && j >= 0 && j < App.getGridSize()) 
+                if (i >= 0 && i < Main.getGridSize() && j >= 0 && j < Main.getGridSize()) 
                 {
                     if (shipGrid[i][j]) 
                     {

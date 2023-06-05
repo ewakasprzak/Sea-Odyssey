@@ -4,7 +4,6 @@ import java.net.URL;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
@@ -16,7 +15,7 @@ public class GUIGameGrid
 {
     private GridPane gamePane = new GridPane();
     private Rectangle[][] grid;
-    private int triesLeft = App.getMaxTries();
+    private int triesLeft = Main.getMaxTries();
     private boolean[][] shipGrid;
     private boolean finished = false;
     private Button text;
@@ -28,9 +27,9 @@ public class GUIGameGrid
         this.grid = grid;
         this.text = text;
 
-        for (int row = 0; row < App.getGridSize(); row++) 
+        for (int row = 0; row < Main.getGridSize(); row++) 
         {
-            for (int col = 0; col < App.getGridSize(); col++) 
+            for (int col = 0; col < Main.getGridSize(); col++) 
             {
                 Field square = new Field();
                 gamePane.add(square.getField(), col, row);
@@ -47,7 +46,7 @@ public class GUIGameGrid
 
     private void changeText()
     {
-        text.setText("Tries left: " + triesLeft);
+        text.setText("Moves left: " + triesLeft);
     }
 
     private void handleSquareClick(int row, int col) 
@@ -92,9 +91,9 @@ public class GUIGameGrid
 
     private boolean checkGameWon() 
     {
-        for (int row = 0; row < App.getGridSize(); row++) 
+        for (int row = 0; row < Main.getGridSize(); row++) 
         {
-            for (int col = 0; col < App.getGridSize(); col++) 
+            for (int col = 0; col < Main.getGridSize(); col++) 
             {
                 if (shipGrid[row][col] && !grid[row][col].getFill().equals(Color.SIENNA)) 
                 {
@@ -118,13 +117,13 @@ public class GUIGameGrid
 
     public void resetGame() 
     {
-        triesLeft = App.getMaxTries();
-        for (int row = 0; row < App.getGridSize(); row++) 
+        triesLeft = Main.getMaxTries();
+        for (int row = 0; row < Main.getGridSize(); row++) 
         {
-            for (int col = 0; col < App.getGridSize(); col++) 
+            for (int col = 0; col < Main.getGridSize(); col++) 
             {
                 grid[row][col].setFill(Color.WHITE);
-                text.setText("Tries left: 66");
+                text.setText("Moves left: 66");
             }
         }
     }
